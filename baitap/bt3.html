@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const todoList = ["Go to bed at 11pm", "Do homework at 8pm"];
+
+        function displayTodoList() {
+            console.log("Danh sách công việc:");
+            for (let i = 0; i < todoList.length; i++) {
+                console.log(`${i + 1}. ${todoList[i]}`);
+            }
+        }
+
+        function addTodoItem(newTodo) {
+            todoList.push(newTodo);
+            displayTodoList();
+        }
+
+        function updateTodoItem(index, updatedTodo) {
+            if (index >= 0 && index < todoList.length) {
+                todoList[index] = updatedTodo;
+                displayTodoList();
+            } else {
+                console.log("Vị trí không hợp lệ.");
+            }
+        }
+
+        function deleteTodoItem(index) {
+            if (index >= 0 && index < todoList.length) {
+                todoList.splice(index, 1);
+                displayTodoList();
+            } else {
+                console.log("Vị trí không hợp lệ.");
+            }
+        }
+
+        const readline = require('readline').createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+
+        function main() {
+            displayTodoList();
+            readline.question("Nhập lệnh (C/R/U/D/Q): ", (command) => {
+                if (command === 'C') {
+                    readline.question("Nhập công việc mới: ", (newTodo) => {
+                        addTodoItem(newTodo);
+                        main();
+                    });
+                } else if (command === 'R') {
+                    displayTodoList();
+                    main();
+                } else if (command === 'U') {
+                    readline.question("Nhập vị trí muốn update: ", (indexStr) => {
+                        const index = parseInt(indexStr) - 1;
+                        readline.question("Nhập nội dung mới: ", (updatedTodo) => {
+                            updateTodoItem(index, updatedTodo);
+                            main();
+                        });
+                    });
+                } else if (command === 'D') {
+                    readline.question("Nhập vị trí muốn xóa: ", (indexStr) => {
+                        const index = parseInt(indexStr) - 1;
+                        deleteTodoItem(index);
+                        main();
+                    });
+                } else if (command === 'Q') {
+                    readline.close();
+                } else {
+                    console.log("Lệnh không hợp lệ.");
+                    main();
+                }
+            });
+        }
+
+        main();
+    </script>
+</body>
+
+</html>

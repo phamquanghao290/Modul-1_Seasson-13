@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Từ Điển Tiếng Anh - Tiếng Việt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #dictionary {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dictionary">
+        <h2>Từ Điển Tiếng Anh - Tiếng Việt</h2>
+        <form id="search-form">
+            <input type="text" id="word" placeholder="Nhập từ tiếng Anh">
+            <button type="submit">Tìm Kiếm</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        var eng = ["hello", "world", "cat", "dog", "apple"];
+        var vie = ["xin chào", "thế giới", "mèo", "chó", "quả táo"];
+
+        // Lấy form và kết quả từ HTML
+        var searchForm = document.getElementById("search-form");
+        var wordInput = document.getElementById("word");
+        var resultDiv = document.getElementById("result");
+
+        // Gắn sự kiện submit cho form
+        searchForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn chặn trình duyệt reload trang
+
+            var searchWord = wordInput.value.toLowerCase(); // Lấy giá trị từ người dùng và chuyển thành chữ thường
+
+            // Tìm kiếm từ trong danh sách tiếng Anh
+            var index = eng.indexOf(searchWord);
+
+            if (index !== -1) { // Nếu từ được tìm thấy
+                var vieTranslation = vie[index];
+                resultDiv.textContent = `Nghĩa của "${searchWord}" là "${vieTranslation}"`;
+            } else { // Nếu không tìm thấy
+                resultDiv.textContent = `Không tìm thấy "${searchWord}" trong từ điển.`;
+            }
+        });
+
+    </script>
+</body>
+
+</html>
